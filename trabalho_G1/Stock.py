@@ -65,7 +65,7 @@ def addItem(stock):
             }
         }
     })
-
+        
 # Alterando Produto
 
 def productChange(stock):
@@ -97,7 +97,3 @@ def delProduct(stock):
     else:
         print("Produto não existente!")
         delProduct(stock)
-
-delProduct(stock)
-Utilities.showAllProducts(stock)
-print(operationHistoric)
