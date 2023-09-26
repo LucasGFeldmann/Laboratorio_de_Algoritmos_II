@@ -1,17 +1,24 @@
 from Utilities import stock
 import Utilities
+from Historic import operationHistoric
+
+# Adicionando Produto
 
 def saveOldValues(stock, item):
     old_values = []
     for values in stock[item].items():
             old_values.append(values[1])
-    return old_values
+
+    amount = old_values[0]
+    price = old_values[1]
+    category = old_values[2]
+    return amount, price, category
 
 def addValues(amount, price, category, stock, item):
     stock[item] = {}
     stock[item] = {"amount" : amount}
     stock[item].update({"price" : price})
-    stock[item].update({"category" : category + " "})
+    stock[item].update({"category" : category})
 
 
 def inputValues(stock, item):
@@ -19,23 +26,28 @@ def inputValues(stock, item):
     price = float(input("Digite o preço desse produto: "))
     category = input("Digite a categoria desse produto: ")
     addValues(amount, price, category, stock, item)
-        
-    new_values = [amount, price, category]
     
-    return new_values
+    return amount, price, category
 
 def sumValues(stock, item):
-    final_value = []
-    old_values = saveOldValues(stock, item)
-    new_values = inputValues(stock, item)
-    for x in range(len(old_values)):
-        final_value.append(old_values[x] + new_values[x])
+    old_amount, old_price, old_category = saveOldValues(stock, item)
+    amount, price, category = inputValues(stock, item)
 
-    amount = final_value[0]
-    price = final_value[1]
-    category = final_value[2]
+    final_amount = old_amount + amount
+    final_price = old_price + price
+    final_category = [old_category, category]
 
-    addValues(amount, price, category, stock, item)
+    operationHistoric.update({
+        "sumValues" : {
+            item : {
+                "amount" : final_amount,
+                "price" : final_price,
+                "category" : final_category
+            }
+        }
+    })
+
+    addValues(final_amount, final_price, final_category, stock, item)
 
 def addItem(stock):
     item = input("Digite o produto que deseja adicionar: ")
@@ -43,10 +55,49 @@ def addItem(stock):
         print("Item ja existente")
         sumValues(stock, item)
     else:
-        inputValues(stock, item)
+        amount, price, category = inputValues(stock, item)
+        operationHistoric.update({
+        "addItem" : {
+            item : {
+                "amount" : amount,
+                "price" : price,
+                "category" : category
+            }
+        }
+    })
 
+# Alterando Produto
 
-addItem(stock)
-print(stock)
+def productChange(stock):
+    item = input("Digite o nome do produto que deseja alterar os valores: ")
+    if item in stock.keys():
+        amount, price, category = inputValues(stock, item)
+        operationHistoric.update({
+        "productChange" : {
+            item : {
+                "amount" : amount,
+                "price" : price,
+                "category" : category
+            }
+        }
+    })
+    else:
+        print("Produto não existente!")
+        productChange(stock)
+
+# Deletando Produto
+
+def delProduct(stock):
+    item = input("Digite o nome do produto que deseja deletar: ")
+    if item in stock.keys():
+        operationHistoric.update({
+            "delProduct" : { item : stock[item]}
+        })
+        del stock[item]
+    else:
+        print("Produto não existente!")
+        delProduct(stock)
+
+delProduct(stock)
 Utilities.showAllProducts(stock)
-
+print(operationHistoric)
