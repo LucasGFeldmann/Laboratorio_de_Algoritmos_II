@@ -1,19 +1,5 @@
 import os
 
-stock = {
-    "Caneta" : {
-        "amount" : 5,
-        "price" : 1.90,
-        "category" : "Materiais Escolares"
-    },
-    "Caderno" : {
-        "amount" : 10,
-        "price" : 5.90,
-        "category" : "Materiais Escolares"
-    },
-
-}
-
 def showAllProducts(stock):
     for products in stock:
         print("\n---------" + products)
@@ -36,3 +22,33 @@ def showProduct(stock):
 
 def cleanConsole():
     print("\n" * os.get_terminal_size().lines)
+
+# Filtro de Categoria
+
+def categoryExists(stock):
+    category = input("Digite a categoria que deseja Vizualizar: ")
+    counter = 0
+    for items in stock.items():
+        if category == items[1]["category"]:
+            counter = 1
+    if counter == 1:
+        filterCategory(stock, category)
+    else:
+        newValue = input("Categoria Inexistente! Digite Novamente a categoria: ")
+        categoryExists(stock, newValue)
+
+def filterCategory(stock, category):
+    listaFiltrada = []
+    for items in stock.items():
+        if category == items[1]["category"]:
+            listaFiltrada.append(list(items))
+    showFilter(listaFiltrada)
+
+def showFilter(listaFiltrada):
+    for items in listaFiltrada:
+        print(f"\n{items[0]} --------")
+        for key, value in items[1].items():
+            if "category" != key:
+                print(key, value)
+    input("\nClique no enter para prosseguir...")
+

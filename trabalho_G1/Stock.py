@@ -1,5 +1,3 @@
-from Utilities import stock
-import Utilities
 from Historic import operationHistoric
 
 # Adicionando Produto
@@ -19,8 +17,29 @@ def addValues(amount, price, category, stock, item):
     stock[item] = {"amount" : amount}
     stock[item].update({"price" : price})
     stock[item].update({"category" : category})
+####
 
+def intValues(value):
+    try:
+        value = int(value)
+    except:
+        value = input("Valor deve ser inteiro: ")
+        intValues(value)
+    else:
+        print(type(value))
+        return value
 
+def floatValues(value):
+    try:
+        value = float(value)
+    except:
+        print("Só é permitido números com casa decimal dividida com '.'!")
+        value = input("Digite novamente o valor: ")
+        floatValues(value)
+    value = float(value)
+    return value
+
+####
 def inputValues(stock, item):
     amount = int(input("Digite a quantia desse produto: "))
     price = float(input("Digite o preço desse produto: "))
@@ -37,7 +56,7 @@ def sumValues(stock, item):
     final_price = old_price + price
     final_category = [old_category, category]
 
-    operationHistoric.update({
+    operationHistoric.append({
         "sumValues" : {
             item : {
                 "amount" : final_amount,
@@ -56,7 +75,7 @@ def addItem(stock):
         sumValues(stock, item)
     else:
         amount, price, category = inputValues(stock, item)
-        operationHistoric.update({
+        operationHistoric.append({
         "addItem" : {
             item : {
                 "amount" : amount,
@@ -72,7 +91,7 @@ def productChange(stock):
     item = input("Digite o nome do produto que deseja alterar os valores: ")
     if item in stock.keys():
         amount, price, category = inputValues(stock, item)
-        operationHistoric.update({
+        operationHistoric.append({
         "productChange" : {
             item : {
                 "amount" : amount,
@@ -90,7 +109,7 @@ def productChange(stock):
 def delProduct(stock):
     item = input("Digite o nome do produto que deseja deletar: ")
     if item in stock.keys():
-        operationHistoric.update({
+        operationHistoric.append({
             "delProduct" : { item : stock[item]}
         })
         del stock[item]

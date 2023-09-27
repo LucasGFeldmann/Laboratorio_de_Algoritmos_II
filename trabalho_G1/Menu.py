@@ -1,20 +1,64 @@
 import Historic
 import Utilities
 import Stock
+import Sales
 
-from Stock import stock
+from Utilities import cleanConsole
+from Historic import stock
+
+def salesMenu():
+    opt = 0
+    while opt != "7":
+        
+        print("----SEÇÃO VENDAS----\n")
+
+        print("1 - Vender Produto")
+
+        print("2 - Listar Todos Produtos")
+        print("3 - Exibir Informações de um Produto")
+        print("4 - Exibir Produtos de uma Categoria")
+
+        print("5 - Fechar Vendas")
+
+        print()
+
+        opt = input("Digite a opção que deseja realizar: ")
+
+        if opt == "1":
+            Sales.sellProduct(stock)
+            cleanConsole()
+        elif opt == "2":
+            Utilities.showAllProducts(stock)
+            cleanConsole()
+        elif opt == "3":
+            Utilities.showProduct(stock)
+            cleanConsole()
+        elif opt == "4":
+            Utilities.categoryExists(stock)
+            cleanConsole()
+        elif opt == "5":
+            cleanConsole()
+            startMenu()
+        else:
+            cleanConsole()
+            print(f"=> '{opt}' é uma Opção Ivalida!\n")
+            salesMenu()
 
 def stockMenu():
     opt = 0
-    while opt != "6":
+    while opt != "7":
+
         print("----SEÇÃO ESTOQUE----\n")
 
         print("1 - Adicionar Produto")
-        print("2 - Alterar Dados Produto")
-        print("3 - Excluir Produto")
-        print("4 - Buscar Produto")
-        print("5 - Listar Produtos")
-        print("6 - Fechar Estoque")
+        print("2 - Excluir Produto ")
+        print("3 - Alterar Dados Produto")
+
+        print("4 - Listar Todos Produtos")
+        print("5 - Exibir Informações de um Produto")
+        print("6 - Exibir Produtos de uma Categoria")
+
+        print("7 - Fechar Estoque")
 
         print()
 
@@ -24,21 +68,24 @@ def stockMenu():
         
         if opt == "1":
             Stock.addItem(stock)
-            Utilities.cleanConsole()
+            cleanConsole()
         elif opt == "2":
-            Stock.productChange(stock)
-            Utilities.cleanConsole()
-        elif opt == "3":
             Stock.delProduct(stock)
-            Utilities.cleanConsole()
+            cleanConsole()
+        elif opt == "3":
+            Stock.productChange(stock)
+            cleanConsole()
         elif opt == "4":
-            Utilities.showProduct(stock)
-            Utilities.cleanConsole()
-        elif opt == "5":
             Utilities.showAllProducts(stock)
-            Utilities.cleanConsole()
+            cleanConsole()
+        elif opt == "5":
+            Utilities.showProduct(stock)
+            cleanConsole()
         elif opt == "6":
-            Utilities.cleanConsole()
+            Utilities.categoryExists(stock)
+            cleanConsole()
+        elif opt == "7":
+            cleanConsole()
             startMenu()
         else:
             print(f"=> '{opt}' é uma Opção Ivalida!\n")
@@ -46,12 +93,15 @@ def stockMenu():
 
 def reportsMenu():
     opt = 0
-    while opt != "2":
+    while opt != "10":
         
         print("----MENU DE RELATÓRIOS----\n")
 
-        print("1 - Histórico de Alterações")
-        print("2 - Sair da aba de Relatórios")
+        print("1 - Histórico Geral de Movimentações")
+        print("2 - Historico de Vendas")
+        print("3 - Historico de Vendas de um unico Produto")
+
+        print("4 - Sair da aba de Relatórios")
 
 
         print()
@@ -59,50 +109,52 @@ def reportsMenu():
         opt = input("Digite a opção a vizualizar: ")
 
         if opt == "1":
-            Utilities.cleanConsole()
-            Utilities.showAllProducts(Historic.operationHistoric)
-            Utilities.cleanConsole()
+            cleanConsole()
+            Historic.showHistoric()
+            cleanConsole()
         elif opt == "2":
-            Utilities.cleanConsole()
+            cleanConsole()
+            Historic.showSells()
+            cleanConsole()
+        elif opt == "3":
+            cleanConsole()
+            Historic.checkSell()
+            cleanConsole()
+        elif opt == "4":
+            cleanConsole()
             startMenu()
         else:
-            Utilities.cleanConsole()
+            cleanConsole()
             print(f"=> '{opt}' é uma Opção Ivalida!\n")
             reportsMenu()
 
 def startMenu():
-    opt = 0
-    while opt != "10":
+    opt = None
+    while opt == None:
         
         print("----MENU PRINCIPAL----\n")
 
         print("1 - Seção Estoque")
-        print("2 - Seção Relatórios")
+        print("2 - Seção Vendas")
+        print("3 - Seção Relatórios")
 
         print()
 
         opt = input("Digite a Seção que deseja Entrar: ")
 
         if opt == "1":
-            Utilities.cleanConsole()
+            cleanConsole()
             stockMenu()
         elif opt == "2":
-            Utilities.cleanConsole()
+            cleanConsole()
+            salesMenu()
+        elif opt == "3":
+            cleanConsole()
             reportsMenu()
-        
         else:
-            Utilities.cleanConsole()
+            cleanConsole()
             print(f"=> '{opt}' é uma Opção Ivalida!\n")
             startMenu()
 
-Utilities.cleanConsole()
+cleanConsole()
 startMenu()
-
-
-
-def salesMenu():
-    pass
-
-
-
-
