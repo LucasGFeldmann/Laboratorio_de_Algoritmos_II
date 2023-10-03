@@ -13,7 +13,7 @@ def showHistoric():
 def showSells():
     for line in operationHistoric:
         for operation, product in line.items():
-            if operation == "sellProduct":
+            if operation == "venda":
                 print("\n",operation, "-------")
                 for key, values in product.items():
                     print(key)
@@ -26,7 +26,7 @@ def checkSell():
     items = input("Digite o produto que deseja ver suas vendas: ")
     for line in operationHistoric:
         for operation, product in line.items():
-            if operation == "sellProduct":
+            if operation == "venda":
                 for key in product.items():
                     if key[0] == items:
                         showSellProduct(product)
@@ -38,7 +38,7 @@ def showSellProduct(product):
     listProduct = []
     for line in operationHistoric:
         for operation, product in line.items():
-            if operation == "sellProduct":
+            if operation == "venda":
                 for key in product.items():
                     listProduct.append(key)
     for items in listProduct:

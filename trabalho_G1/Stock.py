@@ -1,4 +1,7 @@
 from Historic import operationHistoric
+import Utilities
+
+from Utilities import cleanConsole
 
 # Adicionando Produto
 
@@ -14,36 +17,14 @@ def saveOldValues(stock, item):
 
 def addValues(amount, price, category, stock, item):
     stock[item] = {}
-    stock[item] = {"amount" : amount}
-    stock[item].update({"price" : price})
-    stock[item].update({"category" : category})
-####
+    stock[item] = {"quantia" : amount}
+    stock[item].update({"preco" : price})
+    stock[item].update({"categoria" : category})
 
-def intValues(value):
-    try:
-        value = int(value)
-    except:
-        value = input("Valor deve ser inteiro: ")
-        intValues(value)
-    else:
-        print(type(value))
-        return value
-
-def floatValues(value):
-    try:
-        value = float(value)
-    except:
-        print("Só é permitido números com casa decimal dividida com '.'!")
-        value = input("Digite novamente o valor: ")
-        floatValues(value)
-    value = float(value)
-    return value
-
-####
 def inputValues(stock, item):
-    amount = int(input("Digite a quantia desse produto: "))
-    price = float(input("Digite o preço desse produto: "))
-    category = input("Digite a categoria desse produto: ")
+    amount = Utilities.isIntValue(input("Quantia atual em estoque: "))
+    price = Utilities.isFloatValue(input("Preço unitario: R$"))
+    category = input("Qual a sua categoria: ")
     addValues(amount, price, category, stock, item)
     
     return amount, price, category
@@ -57,11 +38,11 @@ def sumValues(stock, item):
     final_category = [old_category, category]
 
     operationHistoric.append({
-        "sumValues" : {
+        "soma" : {
             item : {
-                "amount" : final_amount,
-                "price" : final_price,
-                "category" : final_category
+                "quantia" : final_amount,
+                "preco" : final_price,
+                "categoria" : final_category
             }
         }
     })
@@ -69,21 +50,23 @@ def sumValues(stock, item):
     addValues(final_amount, final_price, final_category, stock, item)
 
 def addItem(stock):
-    item = input("Digite o produto que deseja adicionar: ")
-    if item in stock.keys():
-        print("Item ja existente")
-        sumValues(stock, item)
-    else:
+    cleanConsole()
+    print("----ADICIONANDO PRODUTO----\n")
+    item = input("Nome produto: ")
+    if item not in stock.keys():
         amount, price, category = inputValues(stock, item)
         operationHistoric.append({
-        "addItem" : {
+        "adicao" : {
             item : {
-                "amount" : amount,
-                "price" : price,
-                "category" : category
+                "quantia" : amount,
+                "preco" : price,
+                "categoria" : category
             }
         }
     })
+    else:
+        print("Item ja existente")
+        sumValues(stock, item)
         
 # Alterando Produto
 
@@ -92,11 +75,11 @@ def productChange(stock):
     if item in stock.keys():
         amount, price, category = inputValues(stock, item)
         operationHistoric.append({
-        "productChange" : {
+        "alteracao" : {
             item : {
-                "amount" : amount,
-                "price" : price,
-                "category" : category
+                "quantia" : amount,
+                "preco" : price,
+                "categoria" : category
             }
         }
     })
@@ -110,7 +93,7 @@ def delProduct(stock):
     item = input("Digite o nome do produto que deseja deletar: ")
     if item in stock.keys():
         operationHistoric.append({
-            "delProduct" : { item : stock[item]}
+            "exclusao" : { item : stock[item]}
         })
         del stock[item]
     else:

@@ -50,7 +50,7 @@ def categoryExists(stock):
     category = input("Digite a categoria que deseja Vizualizar: ")
     counter = 0
     for items in stock.items():
-        if category == items[1]["category"]:
+        if category == items[1]["categoria"]:
             counter = 1
     if counter == 1:
         filterCategory(stock, category)
@@ -61,7 +61,7 @@ def categoryExists(stock):
 def filterCategory(stock, category):
     listaFiltrada = []
     for items in stock.items():
-        if category == items[1]["category"]:
+        if category == items[1]["categoria"]:
             listaFiltrada.append(list(items))
     showFilter(listaFiltrada)
 
@@ -69,7 +69,7 @@ def showFilter(listaFiltrada):
     for items in listaFiltrada:
         print(f"\n{items[0]} --------")
         for key, value in items[1].items():
-            if "category" != key:
+            if "categoria" != key:
                 print(key, value)
     input("\nClique no enter para prosseguir...")
 
