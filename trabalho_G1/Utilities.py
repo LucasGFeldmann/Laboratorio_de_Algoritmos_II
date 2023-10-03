@@ -1,5 +1,26 @@
 import os
 
+# Tratar inputs
+
+def isIntValue(value):
+    while True:
+        try:
+            value = int(value)
+            return value
+        except:
+            value = input("[ERROR] Digite um número Inteiro: ")
+
+def isFloatValue(value):
+    while True:
+        try:
+            value = value.replace(",", ".")
+            value = float(value)
+            return value
+        except:
+            value = input("[ERROR] Digite um número: ")
+
+#
+
 def showAllProducts(stock):
     for products in stock:
         print("\n---------" + products)
