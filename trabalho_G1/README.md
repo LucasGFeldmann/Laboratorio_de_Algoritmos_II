@@ -1,30 +1,34 @@
-SISTEMA DE GERENCIAMENTO DE ESTOQUE E VENDA DE PRODUTOS
+#SISTEMA DE GERENCIAMENTO DE ESTOQUE E VENDA DE PRODUTOS
 
-Funcionalidades:
+##Funcionalidades:
 
-Estoque:
+ - Estoque
 Adição de Produto, Alteração de Dados do Produto, Exclusão de Produtos
-Vendas:
+ - Vendas
 Venda de Produto
-Apresentação:
+ - Apresentação
 Apresentar produto, Apresentar produtos de uma categoria
-Relatório Histórico:
+ - Relatório Histórico
 Geral de Movimentações, Histórico de Vendas, Histórico de Vendas de um Produto
 Arquitetura:
 
-O sistema é dividido em 3 partes: 
+##O sistema é dividido em 3 partes: 
 
 Estoque, Vendas e Relatórios. As partes Estoque e Vendas compartilham as funcionalidades de apresentação.
 
-Porém, temos 5 módulos:
+###Porém, temos 5 módulos:
 
-Módulo Histórico:
-Local onde fica armazenado o histórico de transações e apresenta os relatórios do histórico
-Menu:
-Contém os menus das três partes do sistema mais o menu inicial onde se pode transitar entre o estoque, as vendas e os relatórios
-Vendas:
-É neste módulo que contém tudo relacionado às operações de vendas
-Estoque:
+####Módulo Histórico:
+Local onde fica armazenado o histórico de transações e apresenta os relatórios do histórico.
+
+####Menu:
+Contém os menus das três partes do sistema mais o menu inicial onde se pode transitar entre o estoque, as vendas e os relatórios.
+
+####Vendas:
+É neste módulo que contém tudo relacionado às operações de vendas.
+
+####Estoque:
 Onde contém todas as operações relacionadas ao estoque.
-Utilitários:
+
+####Utilitários:
 Neste módulo contém algumas funções que são utilizadas nos outros módulos.
