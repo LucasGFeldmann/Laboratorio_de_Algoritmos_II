@@ -1,6 +1,6 @@
 *SISTEMA DE GERENCIAMENTO DE ESTOQUE E VENDA DE PRODUTOS*
 
-**Funcionalidades:**
+Funcionalidades:
 
  - Estoque
 Adição de Produto, Alteração de Dados do Produto, Exclusão de Produtos
