@@ -22,44 +22,54 @@ def isFloatValue(value):
 #
 
 def showAllProducts(stock):
+    cleanConsole()
+    print("----LISTA DE PRODUTOS----\n")
     for products in stock:
-        print("\n---------" + products)
+        print(products + "--------")
         for keys, values in stock[products].items():
             print(keys.capitalize() + ": ", values)
     input("\nClique no enter para prosseguir...")
 
+def exitEcheck(repit, stock):
+    opt = input("\n1 - Repetir Operação\n2 - Sair\nDigite: ")
+    if opt == "1":
+        repit(stock)
+    elif opt == "2":
+        return
+    else:
+        cleanConsole()
+        print(f"[ERROR] '{opt}' não é uma opção valida!\n")
+        exitEcheck(repit, stock)
+
 def showProduct(stock, item):
     if item not in stock.keys():
         cleanConsole()
-        print(f"=> '{item}' não existente na lista de produtos...")
-        searchProduct(stock)
+        print(f"[ERROR] '{item}' não existente na lista de produtos")
+        exitEcheck(searchProduct, stock)
     else:
         print("\n---------" + item)
         for keys, values in stock[item].items():
             print(keys.capitalize() + ": ", values)
-        print()
+        input("\nClique no enter para prosseguir...")
 
 def searchProduct(stock):
-    item = input("Digite o Item que deseja buscar: ")
+    cleanConsole()
+    print("----INFORMAÇÕES DE UM PRODUTO----\n")
+    item = input("Buscar produto: ")
     showProduct(stock, item)
-    input("Clique no enter para prosseguir...")
 
 def cleanConsole():
     print("\n" * os.get_terminal_size().lines)
 
 # Filtro de Categoria
 
-def categoryExists(stock):
-    category = input("Digite a categoria que deseja Vizualizar: ")
-    counter = 0
-    for items in stock.items():
-        if category == items[1]["categoria"]:
-            counter = 1
-    if counter == 1:
-        filterCategory(stock, category)
-    else:
-        newValue = input("Categoria Inexistente! Digite Novamente a categoria: ")
-        categoryExists(stock, newValue)
+def showFilter(listaFiltrada):
+    for items in listaFiltrada:
+        print(f"{items[0]}--------")
+        for key, value in items[1].items():
+            if "categoria" != key:
+                print(f"{key.capitalize()}: {value}")
+    input("\nClique no enter para prosseguir...")
 
 def filterCategory(stock, category):
     listaFiltrada = []
@@ -68,11 +78,17 @@ def filterCategory(stock, category):
             listaFiltrada.append(list(items))
     showFilter(listaFiltrada)
 
-def showFilter(listaFiltrada):
-    for items in listaFiltrada:
-        print(f"\n{items[0]} --------")
-        for key, value in items[1].items():
-            if "categoria" != key:
-                print(key, value)
-    input("\nClique no enter para prosseguir...")
-
+def categoryExists(stock):
+    cleanConsole()
+    print("----ITENS DA CATEGORIA----\n")
+    category = input("Categoria: ")
+    print()
+    counter = 0
+    for items in stock.items():
+        if category == items[1]["categoria"]:
+            counter = 1
+    if counter == 1:
+        filterCategory(stock, category)
+    else:
+        print("[ERROR] Categoria Inexistente!")
+        exitEcheck(categoryExists, stock)

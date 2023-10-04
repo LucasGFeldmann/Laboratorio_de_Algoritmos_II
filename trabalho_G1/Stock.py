@@ -84,7 +84,9 @@ def addItem(stock):
 # Alterando Produto
 
 def productChange(stock):
-    item = input("Digite o nome do produto que deseja alterar os valores: ")
+    cleanConsole()
+    print("----ALTERAÇÃO DE DADOS----\n")
+    item = input("Produto: ")
     if item in stock.keys():
         amount, price, category = inputValues(stock, item)
         operationHistoric.append({
@@ -97,18 +99,22 @@ def productChange(stock):
         }
     })
     else:
-        print("Produto não existente!")
-        productChange(stock)
+        print("\n[ERROR] Produto não encontrado!")
+        Utilities.exitEcheck(productChange, stock)
+
 
 # Deletando Produto
 
 def delProduct(stock):
-    item = input("Digite o nome do produto que deseja deletar: ")
+    cleanConsole()
+    print("----DELETAR PRODUTO----\n")
+    item = input("Produto: ")
     if item in stock.keys():
         operationHistoric.append({
             "exclusao" : { item : stock[item]}
         })
         del stock[item]
+        input(f"'{item}' - Deletado\n\nPressione enter para prosseguir...")
     else:
-        print("Produto não existente!")
-        delProduct(stock)
+        print(f"\n[ERROR] '{item}' Inexistente!")
+        Utilities.exitEcheck(delProduct, stock)
