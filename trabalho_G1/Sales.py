@@ -1,15 +1,19 @@
-from Historic import operationHistoric
 import datetime
+import Utilities
+
+from Historic import operationHistoric
+from Utilities import cleanConsole
 
 def showSell(stock, product, amount):
     print("\nResumo da Venda\n")
     print(f"{product.capitalize()} => Quantia: {amount} => Preço Unitario: {stock[product]['preco']} => Total: {amount * stock[product]['preco']}")
 
 def productAmount(stock, product):
-    amount = int(input("Digite a quantidade que deseja vender:"))
+    amount = Utilities.isIntValue(input("Digite a quantidade que deseja vender:"))
     if amount > stock[product]["quantia"]:
+        cleanConsole()
         print("Quantia indisponivel! A disponibilidade atual é de:", stock[product]["quantia"])
-        productAmount(stock, product)
+        Utilities.exitEcheck(productAmount, (stock, product))
     else:
         operationHistoric.append({
         "venda" : {
@@ -26,9 +30,11 @@ def productAmount(stock, product):
         input("\nDigite enter para continuar...")
 
 def sellProduct(stock):
-    item = input("Digite o produto que deseja veder: ")
+    cleanConsole()
+    print("----VENDER PRODUTO----\n")
+    item = input("Produto: ")
     if item not in stock.keys():
-        print("Produto Inexistente!")
-        sellProduct(stock)
+        print("[ERROR] Produto Inexistente!")
+        Utilities.exitEcheck(sellProduct, stock)
     else:
         productAmount(stock, item)

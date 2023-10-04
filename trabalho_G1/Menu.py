@@ -122,7 +122,8 @@ def reportsMenu():
             cleanConsole()
         elif opt == "4":
             cleanConsole()
-            startMenu()
+            #startMenu()
+            print(Historic.operationHistoric)
         else:
             cleanConsole()
             print(f"=> '{opt}' é uma Opção Ivalida!\n")

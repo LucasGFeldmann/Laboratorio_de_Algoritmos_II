@@ -1,4 +1,8 @@
 import os
+import Historic
+
+def cleanConsole():
+    print("\n" * os.get_terminal_size().lines)
 
 # Tratar inputs
 
@@ -32,8 +36,14 @@ def showAllProducts(stock):
 
 def exitEcheck(repit, stock):
     opt = input("\n1 - Repetir Operação\n2 - Sair\nDigite: ")
+    print()
     if opt == "1":
-        repit(stock)
+        if type(stock) is not tuple:
+            repit(stock)
+        else:
+            value01 = stock[0]
+            value02 = stock[1]
+            repit(value01, value02)      
     elif opt == "2":
         return
     else:
@@ -50,6 +60,7 @@ def showProduct(stock, item):
         print("\n---------" + item)
         for keys, values in stock[item].items():
             print(keys.capitalize() + ": ", values)
+        Historic.checkSell(item)
         input("\nClique no enter para prosseguir...")
 
 def searchProduct(stock):
@@ -58,8 +69,7 @@ def searchProduct(stock):
     item = input("Buscar produto: ")
     showProduct(stock, item)
 
-def cleanConsole():
-    print("\n" * os.get_terminal_size().lines)
+
 
 # Filtro de Categoria
 
