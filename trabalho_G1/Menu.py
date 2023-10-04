@@ -15,7 +15,7 @@ def salesMenu():
         print("1 - Vender Produto")
 
         print("2 - Listar Todos Produtos")
-        print("3 - Exibir Informações de um Produto")
+        print("3 - Informação Produto + Historico de Vendas")
         print("4 - Exibir Produtos de uma Categoria")
 
         print("5 - Fechar Vendas")
@@ -55,7 +55,7 @@ def stockMenu():
         print("3 - Alterar Dados Produto")
 
         print("4 - Listar Todos Produtos")
-        print("5 - Exibir Informações de um Produto")
+        print("5 - Informação Produto + Historico de Vendas")
         print("6 - Exibir Produtos de uma Categoria")
 
         print("7 - Fechar Estoque")
@@ -99,7 +99,7 @@ def reportsMenu():
 
         print("1 - Histórico Geral de Movimentações")
         print("2 - Historico de Vendas")
-        print("3 - Historico de Vendas de um unico Produto")
+        print("3 - Informação Produto + Historico de Vendas")
 
         print("4 - Sair da aba de Relatórios")
 
@@ -118,12 +118,11 @@ def reportsMenu():
             cleanConsole()
         elif opt == "3":
             cleanConsole()
-            Historic.checkSell()
+            Utilities.searchProduct(stock)
             cleanConsole()
         elif opt == "4":
             cleanConsole()
-            #startMenu()
-            print(Historic.operationHistoric)
+            startMenu()
         else:
             cleanConsole()
             print(f"=> '{opt}' é uma Opção Ivalida!\n")

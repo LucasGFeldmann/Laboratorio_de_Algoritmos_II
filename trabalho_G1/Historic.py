@@ -7,35 +7,23 @@ operationHistoric = [{'adicao': {'Caderno': {'quantia': 100, 'preco': 5.5, 'cate
 def showHistoric():
     for line in operationHistoric:
         for operation, product in line.items():
-            print("\n",operation, "-------")
             for key, values in product.items():
-                print(key)
-                print(values)
+                print(f"\n{operation.upper()} => {key}:")
+                for x, y in values.items():
+                    print(f"{x.capitalize()}: {y}")
     input("\nClique enter para prosseguir...")
 
 def showSells():
     for line in operationHistoric:
         for operation, product in line.items():
             if operation == "venda":
-                print("\n",operation, "-------")
                 for key, values in product.items():
-                    print(key)
-                    print(values)
+                    print(f"\n{operation.upper()} => {key}:")
+                    for x, y in values.items():
+                        print(f"{x.capitalize()}: {y}")
     input("\nClique enter para prosseguir...")
 
 # Vendas de um unico Produto
-
-def showSellProduct(product):
-    listProduct = []
-    for line in operationHistoric:
-        for operation, product in line.items():
-            if operation == "venda":
-                for key in product.items():
-                    listProduct.append(key)
-    for items in listProduct:
-        print("\n",items[0])     
-        print(items[1])          
-    input("\nClique enter para prosseguir...")
 
 def checkSell(search):
     print("\n----HISTORICO DE VENDAS----\n")
