@@ -12,8 +12,7 @@ def saveOldValues(stock, item):
 
     amount = old_values[0]
     price = old_values[1]
-    category = old_values[2]
-    return amount, price, category
+    return amount, price
 
 def addValues(amount, price, category, stock, item):
     stock[item] = {}
@@ -30,24 +29,38 @@ def inputValues(stock, item):
     return amount, price, category
 
 def sumValues(stock, item):
-    old_amount, old_price, old_category = saveOldValues(stock, item)
-    amount, price, category = inputValues(stock, item)
+    amount = Utilities.isIntValue(input("Quantia a adicionar: "))
+    price = Utilities.isFloatValue(input("Preço a adicionar: R$"))
+
+    old_amount, old_price = saveOldValues(stock, item)
 
     final_amount = old_amount + amount
     final_price = old_price + price
-    final_category = [old_category, category]
+    addValues(final_amount, final_price, stock[item]["categoria"], stock, item)
 
     operationHistoric.append({
         "soma" : {
             item : {
-                "quantia" : final_amount,
-                "preco" : final_price,
-                "categoria" : final_category
+                "quantia" : f"{old_amount} + {amount} = {final_amount}",
+                "preco" : f"{old_price} + {price} = {final_price}",
             }
         }
     })
 
-    addValues(final_amount, final_price, final_category, stock, item)
+def addToSum(stock, item):
+    choice = Utilities.isIntValue(input("1 - Voltar para o menu\n2 - Adicionar mais valor\nDigite: "))
+    if choice == 1:
+        return
+    elif choice == 2:
+        cleanConsole()
+        print("----ACRÉSCIMO DE VALOR----\n")
+        Utilities.showProduct(stock, item)
+        sumValues(stock, item)
+    else:
+        print(f"[ERROR] '{choice}' não é uma opção!")
+        addToSum(stock, item)
+
+#addToSum({}, "Caderno")
 
 def addItem(stock):
     cleanConsole()
@@ -65,9 +78,9 @@ def addItem(stock):
         }
     })
     else:
-        print("Item ja existente")
-        sumValues(stock, item)
-        
+        print("\nProduto já cadastrado!\n")
+        addToSum(stock, item)
+
 # Alterando Produto
 
 def productChange(stock):

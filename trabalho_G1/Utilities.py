@@ -27,19 +27,22 @@ def showAllProducts(stock):
         for keys, values in stock[products].items():
             print(keys.capitalize() + ": ", values)
     input("\nClique no enter para prosseguir...")
-     
-def showProduct(stock):
-    item = input("Digite o Item que deseja buscar: ")
+
+def showProduct(stock, item):
     if item not in stock.keys():
         cleanConsole()
         print(f"=> '{item}' não existente na lista de produtos...")
-        showProduct(stock)
+        searchProduct(stock)
     else:
         print("\n---------" + item)
         for keys, values in stock[item].items():
             print(keys.capitalize() + ": ", values)
-        
-        input("\nClique no enter para prosseguir...")
+        print()
+
+def searchProduct(stock):
+    item = input("Digite o Item que deseja buscar: ")
+    showProduct(stock, item)
+    input("Clique no enter para prosseguir...")
 
 def cleanConsole():
     print("\n" * os.get_terminal_size().lines)

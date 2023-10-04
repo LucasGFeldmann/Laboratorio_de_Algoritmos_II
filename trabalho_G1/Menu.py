@@ -31,7 +31,7 @@ def salesMenu():
             Utilities.showAllProducts(stock)
             cleanConsole()
         elif opt == "3":
-            Utilities.showProduct(stock)
+            Utilities.searchProduct(stock)
             cleanConsole()
         elif opt == "4":
             Utilities.categoryExists(stock)
@@ -79,7 +79,7 @@ def stockMenu():
             Utilities.showAllProducts(stock)
             cleanConsole()
         elif opt == "5":
-            Utilities.showProduct(stock)
+            Utilities.searchProduct(stock)
             cleanConsole()
         elif opt == "6":
             Utilities.categoryExists(stock)
