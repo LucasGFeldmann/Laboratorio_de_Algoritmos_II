@@ -1,10 +1,12 @@
 def input_float(value):
-    try:
-        number = round(float(input(value).strip().replace(",",".")), 2)
-        return number
-    except:
-        print("[ERROR] Não é um Número!")
-        input_float(value)
+    while True:
+        try:
+            number = round(float(input(value).strip().replace(",",".")), 2)
+            if number < 0:
+                raise
+            return number
+        except:
+            print("[ERROR] Digite um número valido!")
 
 
 def deposit(account):
@@ -22,7 +24,7 @@ def repit(operation, account):
     elif option == "2":
         return
     else:
-        print("[ERROR] Opção Invalida!")
+        input("[ERROR] Opção Invalida!")
 
 
 def withdraw(account):
