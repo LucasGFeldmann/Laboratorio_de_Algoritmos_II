@@ -2,8 +2,6 @@ def input_float(value):
     while True:
         try:
             number = round(float(input(value).strip().replace(",",".")), 2)
-            if number < 0:
-                raise
             return number
         except:
             print("[ERROR] Digite um número valido!")
